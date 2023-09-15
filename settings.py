@@ -1,5 +1,8 @@
 import os
 
+APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_DIR = os.path.join(APP_PATH, 'html/')
+
 
 class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
