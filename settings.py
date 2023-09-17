@@ -2,6 +2,7 @@ import os
 
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(APP_PATH, 'html/')
+STATIC_DIR = os.path.join(APP_PATH, 'html/static')
 
 
 class Config(object):
