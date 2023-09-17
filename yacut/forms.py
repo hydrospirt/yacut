@@ -9,6 +9,7 @@ class URLForm(FlaskForm):
     # Don't use them if you intend your site to work for the majority of Internet users.
     original = URLField(
         'Введите оригинальную ссылку',
+        name='original_link',
         validators=(
             DataRequired(message='Обязательное поле'),
             Length(1, 2048),
@@ -16,6 +17,7 @@ class URLForm(FlaskForm):
         ))
     short = StringField(
         'Введите короткую ссылку до 16 символов',
+        name='short_link',
         validators=(
             Length(1, 16),
             Optional(),
