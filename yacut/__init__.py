@@ -9,3 +9,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from yacut import api_views, cli_commands, error_handlers, views
+db.create_all()
