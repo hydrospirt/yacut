@@ -13,7 +13,7 @@
           </div>
           <div class="col-sm">
             <form method="POST" novalidate>
-              {{ form.csfr_token }}
+              {{ form.csrf_token }}
               <div>
                 <div>
                   {{ form.original(class="form-control form-control-lg py-2 mb-3", id="form-title",
@@ -56,7 +56,11 @@
               {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
                   {% for category, message in messages %}
-                    {{ message }}
+                    {% if message.startswith("htt") %}
+                      <a href={{ message }}>{{ message }}</a>
+                    {% else %}
+                      {{ message }}
+                    {% endif %}
                 {% endfor %}
                 {% endif %}
               {% endwith %}
