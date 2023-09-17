@@ -12,7 +12,7 @@
           <div class="col-sm">
           </div>
           <div class="col-sm">
-            <form method='POST' novalidate>
+            <form method="POST" novalidate>
               {{ form.csfr_token }}
               <div>
                 <div>
@@ -57,7 +57,6 @@
                 {% if messages %}
                   {% for category, message in messages %}
                     {{ message }}
-                      {{ category }}
                 {% endfor %}
                 {% endif %}
               {% endwith %}
