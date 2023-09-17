@@ -1,23 +1,9 @@
-import random
-import string
-
 from flask import render_template, flash, redirect, url_for
 
 from yacut import app, db
 from yacut.forms import URLForm
 from yacut.models import URLMap
-
-
-def generate_url():
-    gen_lenght = random.randrange(start=1,
-                                  stop=16,
-                                  step=1)
-    random_string = ''.join(random.choices(
-        string.ascii_uppercase +
-        string.ascii_lowercase +
-        string.digits, k=gen_lenght
-    ))
-    return random_string
+from yacut.utils import generate_url
 
 
 def add_to_db(form, short):
@@ -30,17 +16,25 @@ def add_to_db(form, short):
     return flash(url_for('url_view', short=url.short, _external=True))
 
 
+def is_already_in_database(short):
+    if URLMap.query.filter_by(short=short).first():
+        return True
+    return False
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
     form = URLForm()
     short = form.short.data
+    print(short)
     if form.validate_on_submit():
         if short is None:
             short = generate_url()
             flash('Ваша новая ссылка готова:')
             add_to_db(form, short)
-        if URLMap.query.filter_by(short=short).first():
-            flash('Такой адрес занят, для вас был сгенерирован другой адрес:')
+        if is_already_in_database(short):
+            flash('Такой адрес занят.')
+            flash('Для вас был сгенерирован другой адрес:')
             short = generate_url()
             add_to_db(form, short)
         else:
