@@ -32,7 +32,7 @@ def index_view():
             short = generate_url()
             flash('Ваша новая ссылка готова:')
             add_to_db(form, short)
-        if is_already_in_database(short):
+        elif is_already_in_database(short):
             flash('Такой адрес занят.')
             flash('Для вас был сгенерирован другой адрес:')
             short = generate_url()
