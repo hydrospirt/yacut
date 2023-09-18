@@ -11,8 +11,10 @@ class URLMap(db.Model):
 
     def to_dict(self):
         return dict(
-            id=self.id,
             original=self.original,
-            short=self.short,
-            timestamp=self.timestamp,
+            short=self.short
         )
+
+    def from_dict(self, data):
+        for field, api_field in zip(('original', 'short'), ('url', 'custom_id')):
+            setattr(self, field, data.get(api_field))
