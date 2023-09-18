@@ -24,7 +24,7 @@ def is_already_in_database(short):
 
 
 def is_regex_custom_id_link(short):
-    pattern = re.compile('^[a-zA-Z0-9_]*$')
-    if pattern.match(short) and 6 <= len(short) > 16:
-        return True
-    return False
+    pattern = re.compile('[a-zA-Z0-9]*$')
+    if pattern.match(short) and len(short) <= 16:
+        return False
+    return True
