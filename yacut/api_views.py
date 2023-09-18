@@ -9,28 +9,27 @@ from yacut.models import URLMap
 from yacut.utils import generate_url, is_already_in_database, is_regex_custom_id_link
 
 
-@app.route('/api/id/<int:id>/', methods=['GET'])
-def get_short_url(id):
-    BASE_URL = request.host_url
-    url = URLMap.query.get(id)
+@app.route('/api/id/<string:short_id>/', methods=('GET',))
+def get_short_url(short_id):
+    url = URLMap.query.filter_by(short=short_id).first()
     if url is None:
         raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
-    return jsonify({'url': urljoin(BASE_URL, url.to_dict()['short'])}), HTTPStatus.OK
+    return jsonify({'url': url.to_dict()['original']}), HTTPStatus.OK
 
 
-@app.route('/api/id/', methods=['POST'])
+@app.route('/api/id/', methods=('POST',))
 def create_short_url():
     BASE_URL = request.host_url
     data = request.get_json()
     if not data:
         raise InvalidAPIUsage('Отсутствует тело запроса')
-    elif 'url' not in data:
+    if 'url' not in data:
         raise InvalidAPIUsage('"url" является обязательным полем!', HTTPStatus.BAD_REQUEST)
-    elif data.get('custom_id') and is_regex_custom_id_link(data.get('custom_id')):
+    if data.get('custom_id') and is_regex_custom_id_link(data.get('custom_id')):
         raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки', HTTPStatus.BAD_REQUEST)
-    elif data.get('custom_id') and is_already_in_database(data.get('custom_id')):
+    if data.get('custom_id') and is_already_in_database(data.get('custom_id')):
         raise InvalidAPIUsage(f'Имя "{data.get("custom_id")}" уже занято.', HTTPStatus.BAD_REQUEST)
-    elif not data.get('custom_id'):
+    if not data.get('custom_id'):
         data['custom_id'] = generate_url()
         url = URLMap()
         url.from_dict(data)
