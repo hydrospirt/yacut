@@ -6,7 +6,7 @@ from yacut.models import URLMap
 
 
 def generate_url():
-    """Генерирует строку из случайных символов [a-z],[A-Z],[0-9]"""
+    """Генерирует строку из шести случайных символов [a-z],[A-Z],[0-9]"""
     GEN_LENGHT = 6
     random_string = ''.join(random.choices(
         string.ascii_uppercase +
@@ -24,6 +24,12 @@ def is_already_in_database(short):
 
 
 def is_regex_custom_id_link(short):
+    """ Проверяет на соотвествие паттерну:
+        - большие латинские буквы;
+        - маленькие латинские буквы;
+        - цифры в диапазоне от 0 до 9;
+        - Не больше 16 символов;
+    """
     pattern = re.compile('[a-zA-Z0-9]*$')
     if pattern.match(short) and len(short) <= 16:
         return False
