@@ -19,7 +19,6 @@ class URLForm(FlaskForm):
         'Введите короткую ссылку до 16 символов',
         name='short_link',
         validators=(
-            Length(1, 16),
             Optional(),
             Regexp(regex='^[a-zA-Z0-9_]*$',
                    message='Используйте только большие или маленькие латинские буквы, ' +
