@@ -9,6 +9,17 @@ from yacut.models import URLMap
 from yacut.utils import generate_url, is_already_in_database, is_regex_custom_id_link
 
 
+def get_jsonyfy_object_created(data, BASE_URL):
+    url = URLMap()
+    url.from_dict(data)
+    db.session.add(url)
+    db.session.commit()
+    return jsonify(
+        {'url': url.to_dict()['original'],
+         'short_link': urljoin(BASE_URL, url.to_dict()['short'])
+         }), HTTPStatus.CREATED
+
+
 @app.route('/api/id/<string:short_id>/', methods=('GET',))
 def get_original_url(short_id):
     url = URLMap.query.filter_by(short=short_id).first()
@@ -31,20 +42,6 @@ def create_short_url():
         raise InvalidAPIUsage(f'Имя "{data.get("custom_id")}" уже занято.', HTTPStatus.BAD_REQUEST)
     if not data.get('custom_id'):
         data['custom_id'] = generate_url()
-        url = URLMap()
-        url.from_dict(data)
-        db.session.add(url)
-        db.session.commit()
-        return jsonify(
-            {'url': url.to_dict()['original'],
-             'short_link': urljoin(BASE_URL, url.to_dict()['short'])
-             }), HTTPStatus.CREATED
+        return get_jsonyfy_object_created(data, BASE_URL)
     else:
-        url = URLMap()
-        url.from_dict(data)
-        db.session.add(url)
-        db.session.commit()
-        return jsonify(
-            {'url': url.to_dict()['original'],
-             'short_link': urljoin(BASE_URL, url.to_dict()['short'])
-             }), HTTPStatus.CREATED
+        return get_jsonyfy_object_created(data, BASE_URL)
