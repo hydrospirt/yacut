@@ -10,7 +10,7 @@ from yacut.utils import generate_url, is_already_in_database, is_regex_custom_id
 
 
 @app.route('/api/id/<string:short_id>/', methods=('GET',))
-def get_short_url(short_id):
+def get_original_url(short_id):
     url = URLMap.query.filter_by(short=short_id).first()
     if url is None:
         raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
