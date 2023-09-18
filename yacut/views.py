@@ -16,33 +16,28 @@ def add_to_db(form, short):
     return flash(url_for('url_view', short=url.short, _external=True))
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=('GET', 'POST'))
 def index_view():
     form = URLForm()
     short = form.short.data
-    print(short)
     if form.validate_on_submit():
         if short is None:
             short = generate_url()
             flash('Ваша новая ссылка готова:')
             add_to_db(form, short)
-        elif is_already_in_database(short):
+        if len(short) > 16:
+            flash('Указано недопустимое имя для короткой ссылки')
+        if is_already_in_database(short):
             flash(f'Имя {short} уже занято!')
             short = generate_url()
             add_to_db(form, short)
         else:
-            url = URLMap(
-                original=form.original.data,
-                short=short
-            )
-            db.session.add(url)
-            db.session.commit()
             flash('Ваша новая ссылка готова:')
             add_to_db(form, short)
     return render_template('index.html', form=form)
 
 
-@app.route('/<string:short>', methods=['GET'])
+@app.route('/<string:short>', methods=('GET',))
 def url_view(short):
     url = URLMap.query.filter_by(short=short).first_or_404().original
     return redirect(url)
