@@ -18,8 +18,8 @@ def generate_url():
 
 def is_already_in_database(short):
     """Проверяет запись в БД на уникальность значения"""
-    if URLMap.query.filter_by(short=short).first():
-        return True
+    if obj := URLMap.query.filter_by(short=short).first():
+        return obj
     return False
 
 
