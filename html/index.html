@@ -53,19 +53,17 @@
           </div>
           <div class="col-sm">
             <p class="text-center">
-            <h5 class="text-center">
               {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
                   {% for category, message in messages %}
                     {% if message.startswith("htt") %}
-                      <a href={{ message }}>{{ message }}</a>
+                    <h5 class="text-center"><a href={{ message }}>{{ message }}</a></h5>
                     {% else %}
-                      {{ message }}
+                      <h5 class="text-center">{{ message }}</h5>
                     {% endif %}
                 {% endfor %}
                 {% endif %}
               {% endwith %}
-            </h5>
             </p>
           </div>
           <div class="col-sm">
