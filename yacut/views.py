@@ -24,16 +24,13 @@ def index_view():
         if short is None:
             short = generate_url()
             flash('Ваша новая ссылка готова:')
-            add_to_db(form, short)
         if len(short) > 16:
             flash('Указано недопустимое имя для короткой ссылки')
-        if is_already_in_database(short):
-            flash(f'Имя {short} уже занято!')
+        if text := is_already_in_database(short):
+            flash(f'Имя {text} уже занято!')
             short = generate_url()
-            add_to_db(form, short)
-        else:
-            flash('Ваша новая ссылка готова:')
-            add_to_db(form, short)
+        flash('Ваша новая ссылка готова:')
+        add_to_db(form, short)
     return render_template('index.html', form=form)
 
 
