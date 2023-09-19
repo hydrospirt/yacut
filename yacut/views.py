@@ -19,17 +19,18 @@ def add_to_db(form, short):
 @app.route('/', methods=('GET', 'POST'))
 def index_view():
     form = URLForm()
-    short = form.short.data
+
     if form.validate_on_submit():
+        short = form.short.data
         if short is None:
             short = generate_url()
-            flash('Ваша новая ссылка готова:')
-        if len(short) > 16:
-            flash('Указано недопустимое имя для короткой ссылки')
+        if short and len(short) > 16:
+            flash('Указано недопустимое имя для короткой ссылки', category='error')
+            return render_template('index.html', form=form)
         if text := is_already_in_database(short):
-            flash(f'Имя {text} уже занято!')
-            short = generate_url()
-        flash('Ваша новая ссылка готова:')
+            flash(f'Имя {text} уже занято!', category='error')
+            return render_template('index.html', form=form)
+        flash('Ваша короткая ссылка готова:')
         add_to_db(form, short)
     return render_template('index.html', form=form)
 
