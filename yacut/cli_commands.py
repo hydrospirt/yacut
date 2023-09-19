@@ -23,9 +23,10 @@ def load_links_command():
         reader = csv.DictReader(f)
         counter = 0
         for row in reader:
-            if row['short'] is None:
-                row['short'] = generate_url()
             if URLMap.query.filter_by(short=row['short']).first():
+                row['short'] = generate_url()
+                counter = load_to_database(row, counter)
+            if not row['short']:
                 row['short'] = generate_url()
                 counter = load_to_database(row, counter)
             else:
