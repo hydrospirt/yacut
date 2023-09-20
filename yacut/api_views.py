@@ -6,7 +6,8 @@ from flask import jsonify, request
 from yacut import app, db
 from yacut.error_handlers import InvalidAPIUsage
 from yacut.models import URLMap
-from yacut.utils import generate_url, is_already_in_database, is_regex_custom_id_link
+from yacut.utils import (generate_url, is_already_in_database,
+                         is_regex_custom_id_link)
 
 
 def get_jsonyfy_object_created(data, BASE_URL):

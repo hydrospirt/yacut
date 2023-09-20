@@ -1,6 +1,6 @@
 import random
-import string
 import re
+import string
 
 from yacut.models import URLMap
 

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import flash, redirect, render_template, url_for
 
 from yacut import app, db
 from yacut.forms import URLForm
