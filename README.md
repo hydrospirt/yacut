@@ -36,7 +36,7 @@ pip install -r requirements.txt
 flask run
 ```
 Пример вывода:
-![Пример страницы](git@github.com:hydrospirt/yacut.git/blob/master/example.png?raw=true)
+![Пример страницы](git@github.com:hydrospirt/yacut.git/blob/main/example1.png?raw=true)
 > Используйте https://editor.swagger.io/ для просмотра документации к API.
 > Файл с документацией в репозитории: **openapi.yaml**
 
