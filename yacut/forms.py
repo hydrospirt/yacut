@@ -17,7 +17,7 @@ class URLForm(FlaskForm):
         ))
     short = StringField(
         'Введите короткую ссылку до 16 символов',
-        name='short_link',
+        name='custom_id',
         validators=(
             Optional(),
             Regexp(regex='^[a-zA-Z0-9_]*$',
