@@ -10,5 +10,3 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     JSON_AS_ASCII = False
-    SQLALCHEMY_ECHO = True
-    SQLALCHEMY_RECORD_QUERIES = True
