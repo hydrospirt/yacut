@@ -7,7 +7,7 @@ class URLForm(FlaskForm):
     # Extremely long URLs are usually a mistake.
     # URLs over 2,000 characters will not work in the most popular web browsers.
     # Don't use them if you intend your site to work for the majority of Internet users.
-    original = URLField(
+    original_link = URLField(
         'Введите оригинальную ссылку',
         name='original_link',
         validators=(
@@ -15,9 +15,9 @@ class URLForm(FlaskForm):
             Length(1, 2048),
             URL(require_tld=False, message='URL-адрес содержит ошибки')
         ))
-    short = StringField(
+    custom_id = StringField(
         'Введите короткую ссылку до 16 символов',
-        name='short_link',
+        name='custom_id',
         validators=(
             Optional(),
             Regexp(regex='^[a-zA-Z0-9_]*$',
