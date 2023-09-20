@@ -1,37 +1,44 @@
-Клонировать репозиторий и перейти в него в командной строке:
+# Сокращение ссылок YaCut
 
+---
+## О сервисе YaCut
+Проект **YaCut** — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
+
+## Технологии
+- Python 3.9
+- Flask
+
+## Установка:
+- Клонируйте проект парсера на свой компьютер:
 ```
-git clone 
+git@github.com:hydrospirt/yacut.git
 ```
-
+- Установите и активируйте виртуальное окружение
 ```
-cd yacut
+py -3.9 -m venv venv
 ```
-
-Cоздать и активировать виртуальное окружение:
-
+Для Windows:
 ```
-python3 -m venv venv
+source venv/Scripts/Activate
 ```
-
-* Если у вас Linux/macOS
-
-    ```
-    source venv/bin/activate
-    ```
-
-* Если у вас windows
-
-    ```
-    source venv/scripts/activate
-    ```
-
-Установить зависимости из файла requirements.txt:
-
+Для Linux
+```
+source venv/bin/activate
+```
+- Установите зависимости из файла requirements.txt
 ```
 python3 -m pip install --upgrade pip
-```
-
-```
 pip install -r requirements.txt
 ```
+## Инструкции для запуска
+Для запуска парсера используте комманду:
+```
+flask run
+```
+Пример вывода:
+![Пример страницы](git@github.com:hydrospirt/yacut.git/blob/main/example.png?raw=true)
+> Используйте https://editor.swagger.io/ для просмотра документации к API.
+> Файл с документацией в репозитории: **openapi.yaml**
+
+# Автор
+Эдуард Гумен - [Cтраница GitHub](https://github.com/hydrospirt)
