@@ -36,13 +36,17 @@ def create_short_url():
     if not data:
         raise InvalidAPIUsage('Отсутствует тело запроса')
     if 'url' not in data:
-        raise InvalidAPIUsage('"url" является обязательным полем!', HTTPStatus.BAD_REQUEST)
+        raise InvalidAPIUsage(
+            '"url" является обязательным полем!',
+            HTTPStatus.BAD_REQUEST)
     if data.get('custom_id') and is_regex_custom_id_link(data.get('custom_id')):
-        raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки', HTTPStatus.BAD_REQUEST)
+        raise InvalidAPIUsage(
+            'Указано недопустимое имя для короткой ссылки',
+            HTTPStatus.BAD_REQUEST)
     if data.get('custom_id') and is_already_in_database(data.get('custom_id')):
-        raise InvalidAPIUsage(f'Имя "{data.get("custom_id")}" уже занято.', HTTPStatus.BAD_REQUEST)
+        raise InvalidAPIUsage(
+            f'Имя "{data.get("custom_id")}" уже занято.',
+            HTTPStatus.BAD_REQUEST)
     if not data.get('custom_id'):
         data['custom_id'] = generate_url()
-        return get_jsonyfy_object_created(data, BASE_URL)
-    else:
         return get_jsonyfy_object_created(data, BASE_URL)
