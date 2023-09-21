@@ -22,7 +22,7 @@ def get_jsonyfy_object_created(data, BASE_URL):
 
 
 @app.route('/api/id/<string:short_id>/', methods=('GET',))
-def get_original_url(short_id):
+def get_original_url(short_id: str):
     url = URLMap.query.filter_by(short=short_id).first()
     if url is None:
         raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
@@ -39,7 +39,7 @@ def create_short_url():
         raise InvalidAPIUsage(
             '"url" является обязательным полем!',
             HTTPStatus.BAD_REQUEST)
-    if data.get('custom_id') and is_regex_custom_id_link(data.get('custom_id')):
+    if data.get('custom_id') and not is_regex_custom_id_link(data.get('custom_id')):
         raise InvalidAPIUsage(
             'Указано недопустимое имя для короткой ссылки',
             HTTPStatus.BAD_REQUEST)
