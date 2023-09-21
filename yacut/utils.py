@@ -22,4 +22,4 @@ def is_regex_custom_id_link(short: str) -> bool:
         - цифры в диапазоне от 0 до 9;
         - Не больше 16 символов;
     """
-    return PATTERN.match(short) and len(short) > MAXLEN_CUSTOM_ID
+    return bool(PATTERN.match(short)) and len(short) < MAXLEN_CUSTOM_ID
