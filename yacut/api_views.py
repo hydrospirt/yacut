@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from urllib.parse import urljoin
 
-from flask import jsonify, request
+from flask import Response, jsonify, request
 
 from yacut import app, db
 from yacut.error_handlers import InvalidAPIUsage
@@ -10,7 +10,7 @@ from yacut.utils import (generate_url, is_already_in_database,
                          is_regex_custom_id_link)
 
 
-def get_jsonyfy_object_created(data, BASE_URL):
+def get_jsonyfy_object_created(data: dict, BASE_URL: str) -> Response:
     url = URLMap()
     url.from_dict(data)
     db.session.add(url)
@@ -22,7 +22,7 @@ def get_jsonyfy_object_created(data, BASE_URL):
 
 
 @app.route('/api/id/<string:short_id>/', methods=('GET',))
-def get_original_url(short_id: str):
+def get_original_url(short_id: str) -> Response:
     url = URLMap.query.filter_by(short=short_id).first()
     if url is None:
         raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
@@ -30,7 +30,7 @@ def get_original_url(short_id: str):
 
 
 @app.route('/api/id/', methods=('POST',))
-def create_short_url():
+def create_short_url() -> Response:
     BASE_URL = request.host_url
     data = request.get_json()
     if not data:

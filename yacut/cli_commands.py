@@ -7,7 +7,7 @@ from yacut.models import URLMap
 from yacut.utils import generate_url
 
 
-def load_to_database(row, counter):
+def load_to_database(row: dict, counter: int) -> int:
     """Функция записи в базу данных, возвращает количество записанных обьектов"""
     url = URLMap(**row)
     db.session.add(url)
@@ -17,7 +17,7 @@ def load_to_database(row, counter):
 
 
 @app.cli.command('load_links')
-def load_links_command():
+def load_links_command() -> None:
     """Функция загрузки ссылок в базу данных."""
     with open('links.csv', encoding='utf-8') as f:
         reader = csv.DictReader(f)

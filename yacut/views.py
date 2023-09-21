@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for
+from flask import Response, flash, redirect, render_template, url_for
 
 from yacut import app, db
 from yacut.forms import URLForm
@@ -6,7 +6,7 @@ from yacut.models import URLMap
 from yacut.utils import generate_url, is_already_in_database
 
 
-def add_to_db(form, short):
+def add_to_db(form: URLForm, short: str) -> Response:
     url = URLMap(
         original=form.original.data,
         short=short
@@ -17,7 +17,7 @@ def add_to_db(form, short):
 
 
 @app.route('/', methods=('GET', 'POST'))
-def index_view():
+def index_view() -> Response:
     form = URLForm()
     if not form.validate_on_submit():
         return render_template('index.html', form=form)
@@ -36,6 +36,6 @@ def index_view():
 
 
 @app.route('/<string:short>', methods=('GET',))
-def url_view(short):
+def url_view(short: str) -> Response:
     url = URLMap.query.filter_by(short=short).first_or_404().original
     return redirect(url)
