@@ -49,4 +49,4 @@ def create_short_url():
             HTTPStatus.BAD_REQUEST)
     if not data.get('custom_id'):
         data['custom_id'] = generate_url()
-        return get_jsonyfy_object_created(data, BASE_URL)
+    return get_jsonyfy_object_created(data, BASE_URL)
