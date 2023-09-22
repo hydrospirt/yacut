@@ -3,6 +3,7 @@ from flask import Response, flash, redirect, render_template, url_for
 from yacut import app, db
 from yacut.forms import URLForm
 from yacut.models import URLMap
+from yacut.settings import MAXLEN_CUSTOM_ID
 from yacut.utils import generate_url, is_already_in_database
 
 
@@ -24,7 +25,7 @@ def index_view() -> Response:
     short = form.short.data
     if short is None:
         short = generate_url()
-    if short and len(short) > 16:
+    if short and len(short) > MAXLEN_CUSTOM_ID:
         flash('Указано недопустимое имя для короткой ссылки')
         return render_template('index.html', form=form)
     if text := is_already_in_database(short):
