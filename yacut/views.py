@@ -28,7 +28,7 @@ def index_view() -> Response:
         flash('Указано недопустимое имя для короткой ссылки')
         return render_template('index.html', form=form)
     if text := is_already_in_database(short):
-        flash(f'Имя {text} уже занято!')
+        flash(f'Имя {text.short} уже занято!')
         return render_template('index.html', form=form)
     flash('Ваша новая ссылка готова:')
     add_to_db(form, short)
