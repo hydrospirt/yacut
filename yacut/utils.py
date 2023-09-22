@@ -11,8 +11,7 @@ def generate_url() -> str:
 
 def is_already_in_database(short: str) -> str:
     """Проверяет запись в БД на уникальность значения"""
-    if obj := URLMap.query.filter_by(short=short).first():
-        return obj.short
+    return URLMap.query.filter_by(short=short).first()
 
 
 def is_regex_custom_id_link(short: str) -> bool:
