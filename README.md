@@ -31,7 +31,7 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 ## Инструкции для запуска
-Для запуска парсера используте комманду:
+Для запуска используте комманду:
 ```
 flask run
 ```
